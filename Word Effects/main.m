@@ -17,19 +17,22 @@ int main(int argc, const char * argv[]) {
         char number[255];
         int operation = 0;
         
-        while (number != nil) {
+        while (TRUE) {
             
             printf("Input a string: ");
             // limit input to max 255 characters
             fgets(inputChars, 255, stdin);
-            NSLog(@"input a number (1-6): ");
+            NSLog(@"input a number (1-10): ");
             
             
             fgets(number, 255, stdin);
             operation = atoi(number);
-            while (operation > 6) {
-                NSLog(@"Invalid number, input number from 1-6");
-                fgets(number, 6, stdin);
+            
+            
+            //6 for part 2, 10 for part 3
+            while (operation > 10) {
+                NSLog(@"Invalid number, input number from 1-10");
+                fgets(number, 255, stdin);
                 operation = atoi(number);
             }
             
@@ -37,7 +40,7 @@ int main(int argc, const char * argv[]) {
             
             // print as a c string
             printf("Your string is %s\n", inputChars);
-            NSLog(@"Your number is %d", operation);
+            NSLog(@"The operation is %d", operation);
             
             // convert char array to an NSString object
             NSString *inputString = [NSString stringWithUTF8String:inputChars];
@@ -50,8 +53,11 @@ int main(int argc, const char * argv[]) {
             NSString *uppercase = [inputString uppercaseString];
             NSString *lowercase = [inputString lowercaseString];
             int numberString = [inputString intValue];
-            NSString *canadian = [inputString stringByAppendingString:@" ,eh?"];
+            NSString *canadian = [inputString stringByAppendingString:@", eh?"];
             NSString *despace = [inputString stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+            NSString *noSpace = [inputString stringByReplacingOccurrencesOfString:@" " withString:@""];
+            NSInteger count = [noSpace length] - 1;
+            
             
             
             switch (operation) {
@@ -62,10 +68,10 @@ int main(int argc, const char * argv[]) {
                     NSLog(@"%@", lowercase);
                     break;
                 case 3:
-                    if (numberString + 1 == nil) {
+                    if (numberString != 0) {
                         NSLog(@"%d", numberString);
                     } else {
-                        NSLog(@"Does not work");
+                        NSLog(@"Does not work, not a valid int value");
                     }
                     break;
                 case 4:
@@ -82,6 +88,13 @@ int main(int argc, const char * argv[]) {
                 case 6:
                     NSLog(@"%@", despace);
                     break;
+                case 7:
+                    NSLog(@"%@", noSpace);
+                    break;
+                case 8:
+                    NSLog(@"your word is: %@ and it is %ld letters long", inputString, (long)count);
+                    break;
+            
                     
             }
         }
